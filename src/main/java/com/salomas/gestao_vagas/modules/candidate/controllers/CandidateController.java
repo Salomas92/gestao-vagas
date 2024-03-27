@@ -1,11 +1,13 @@
 package com.salomas.gestao_vagas.modules.candidate.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salomas.gestao_vagas.modules.candidate.CadidateEntity;
+import com.salomas.gestao_vagas.modules.candidate.CandidateRepository;
 
 import jakarta.validation.Valid;
 
@@ -13,11 +15,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/candidate")
 public class CandidateController {
 
-  @PostMapping("/")
-  public void create(@Valid @RequestBody CadidateEntity cadidateEntity){
+  @Autowired
+  private CandidateRepository candidateRepository;
 
-    System.out.println("Candidato");
-    System.out.println(cadidateEntity.getEmail());
+  @PostMapping("/")
+  public CadidateEntity create(@Valid @RequestBody CadidateEntity cadidateEntity){
+
+    return this.candidateRepository.save(cadidateEntity);
 
   }
   
